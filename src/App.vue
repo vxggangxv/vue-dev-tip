@@ -1,28 +1,53 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <button
+      v-for="tab in tabs"
+      :key="tab"
+      @click="selected = tab;"
+      :class="['tab-btn', { active: selected === tab }]"
+    >
+      {{ tab }}
+    </button>
+
+    <component :is="selected" class="tab"></component>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Home from "./components/Home";
+import Contact from "./components/Contact";
 
 export default {
-  name: 'app',
+  data: function() {
+    return {
+      tabs: ["Home", "Contact"],
+      selected: "Home"
+    };
+  },
   components: {
-    HelloWorld
+    Home,
+    Contact
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.tab-btn {
+  padding: 6px 10px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: 2px solid #cccccc;
+  outline: none;
+}
+
+.active {
+  border-bottom: 3px solid green;
+  background: #fcfcf;
+}
+
+.tab {
+  border: 1px solid #ccc;
+  padding: 10px;
 }
 </style>
